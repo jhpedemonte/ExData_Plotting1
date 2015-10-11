@@ -10,7 +10,12 @@ data$Date <- as.Date(data$Date, "%d/%m/%Y")
 data$FullDate <- paste(data$Date, data$Time)
 data$Time <- strptime(data$FullDate, "%Y-%m-%d %H:%M:%S")
 
-# plot the "Global_active_power" variable over time and save to PNG
-png(filename = 'plot2.png', width = 480, height = 480)
-plot(data$Time, data$Global_active_power, type = 'l', ylab = 'Global Active Power (kilowatts)', xlab = '')
+# plot the 3 "submetering" variables over time and save to PNG
+png(filename = 'plot3.png', width = 480, height = 480)
+with(data, {
+	plot(Time, Sub_metering_1, type = 'l', col = 'black', ylab = 'Energy sub metering', xlab = '')
+	lines(Time, Sub_metering_2, col = 'red')
+	lines(Time, Sub_metering_3, col = 'blue')
+	legend('topright', legend = c('Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3'), col = c('black', 'red', 'blue'), lwd = 1)
+})
 dev.off()
